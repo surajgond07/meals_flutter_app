@@ -5,9 +5,12 @@ class MealDetailsScreen extends StatelessWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
+    required this.onToggleFavorite,
   });
 
   final Meal meal;
+  final void Function(Meal meal)
+      onToggleFavorite; // meal should be added or removed as a favorite
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,13 @@ class MealDetailsScreen extends StatelessWidget {
             meal.title,
           ),
           centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  onToggleFavorite(meal);
+                },
+                icon: const Icon(Icons.star))
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
