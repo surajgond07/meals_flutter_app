@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories.dart';
+import 'package:meals_app/screens/filters.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/main_drawer.dart';
 
@@ -48,6 +49,18 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  // function for Drawer
+  void _setScreen(String identifier) {
+    Navigator.of(context).pop();
+    if (identifier == 'filter') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const FiltersScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen(
@@ -68,7 +81,9 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(activePageTitle),
       ),
       // Side Drawer
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectedScreen: _setScreen,
+      ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
           // whenever the tab one of the following tabs re-trigger nd update the select page
